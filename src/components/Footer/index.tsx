@@ -1,0 +1,33 @@
+import { GithubOutlined } from '@ant-design/icons';
+import { DefaultFooter } from '@ant-design/pro-layout';
+
+const Footer: React.FC = () => {
+  const defaultMessage = '小岐出品';
+  const currentYear = new Date().getFullYear();
+  return (
+    <DefaultFooter
+      copyright={`${currentYear} ${defaultMessage}`}
+      links={[
+        {
+          key: 'ljq',
+          title: 'ljq',
+          href: 'https://pro.ant.design',
+          blankTarget: true,
+        },
+        {
+          key: 'github',
+          title: <><GithubOutlined /> ljq GitHub</>,
+          href: 'https://github.com/ant-design/ant-design-pro',
+          blankTarget: true,
+        },
+        {
+          key: 'Ant Design',
+          title: 'Ant Design',
+          href: 'https://ant.design',
+          blankTarget: true,
+        },
+      ]}
+    />
+  );
+};
+export default Footer;
