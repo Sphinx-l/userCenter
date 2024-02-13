@@ -57,6 +57,24 @@ export default defineConfig({
       ],
     },
     {
+      path: '/admin',
+      name: 'admin',
+      icon: 'crown',
+      component: './Admin',
+      routes: [
+        { path: '/admin', redirect: '/admin/userManage' },
+        {
+          name: 'manage',
+          path: '/admin/userManage',
+          wrappers: ['@/wrappers/authWrapper'],
+          component: './Admin/userManage',
+        },
+        {
+          component: '404',
+        },
+      ],
+    },
+    {
       path: '/dashboard',
       name: 'dashboard',
       icon: 'dashboard',

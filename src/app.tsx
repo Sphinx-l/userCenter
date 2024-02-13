@@ -12,7 +12,7 @@ import defaultSettings from '../config/defaultSettings';
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
 const registerPath = '/user/register';
-const WhitePages = [loginPath, registerPath];
+const NO_NEED_LOGIN_PAGES = [loginPath, registerPath];
 
 /** 获取用户信息比较慢的时候会展示一个 loading */
 export const initialStateConfig = {
@@ -35,12 +35,12 @@ export async function getInitialState(): Promise<{
     try {
       return await queryCurrentUser();
     } catch (error) {
-      // history.push(loginPath);
+      history.push(loginPath);
     }
     return undefined;
   };
-  // 如果不是登录或注册页面，执行
-  if (!WhitePages.includes(history.location.pathname)) {
+  // 如果是登录或注册页面，执行
+  if (NO_NEED_LOGIN_PAGES.includes(history.location.pathname)) {
     return {
       fetchUserInfo,
       settings: defaultSettings,
@@ -66,7 +66,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     onPageChange: () => {
       const { location } = history;
       // 如果没有登录，重定向到 login
-      if (WhitePages.includes(history.location.pathname)) {
+      if (NO_NEED_LOGIN_PAGES.includes(history.location.pathname)) {
         return;
       }
       if (!initialState?.currentUser && location.pathname !== loginPath) {
